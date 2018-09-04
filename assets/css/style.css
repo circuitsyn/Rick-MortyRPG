@@ -1,0 +1,24 @@
+body, html {
+    height: 100%;
+    color: white;
+}
+
+.bg {
+/*Background image:*/
+background-image: url("../images/backdropRnM.jpg");
+
+ /* Full height */
+ height: 100%;
+
+ /* Center and scale the image nicely */
+ background-position: center;
+ background-repeat: no-repeat;
+ background-size: cover;
+}
+
+img {
+    height: 200px !important;
+    border: none !important;
+    background-color: transparent !important;
+}
+
