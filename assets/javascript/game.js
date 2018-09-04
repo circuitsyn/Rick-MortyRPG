@@ -12,9 +12,14 @@ $(document).ready(function() {
 //     }
 // }
 
+//window.location.reload(); -- reload windows
 
 //array to whole all objects to be checked
 var players = [pickleRick,mrMeeSeeks,scaryTerry,morty];
+
+var gameStatus = {
+    stage: 0,
+};
 
 var pickleRick = {
     yourPlayer: false, //value to track if player chosen
@@ -56,21 +61,39 @@ var morty = {
     damage: 0,
 };
 
-
-
+console.log(gameStatus.stage);
+//character one behavior flow
 $("#char1").click(function() {
-    console.log(pickleRick.yourPlayer);
-    pickleRick.yourPlayer = true;
-    console.log(pickleRick.yourPlayer);
-    $("#yourChar").append($("#char1"));
-    // for(var i = 0; i < players.length; i++) {
-    //     if (players[i].yourPlayer == 'true') {
-    //         console.log(players[i]);
-    //         $("#yourChar").append(".char1");
-    //         break;
-    //     }
-    // }
+    debugger;
+    if (gameStatus.stage == 0){
+        gameStatus.stage++;
+        console.log(gameStatus.stage);
+        $("#yourChar").append($("#char1"));
+        $("#enemiesAvail").append($("#char2"));
+        $("#enemiesAvail").append($("#char3"));
+        $("#enemiesAvail").append($("#char4"));
+    }
+    // console.log(gameStatus.stage);
+    else if (gameStatus.stage == 1) {
+        $("#defender").append($("#char1"));
+    }
+
+  });
+
+//character two behavior flow
+$("#char2").click(function() {
     
+    if (gameStatus.stage == 0){
+        gameStatus.stage++;
+        $("#yourChar").append($("#char2"));
+        $("#enemiesAvail").append($("#char1"));
+        $("#enemiesAvail").append($("#char3"));
+        $("#enemiesAvail").append($("#char4"));
+    }
+    
+    else if (gameStatus.stage == 1) {
+        $("#defender").append($("#char2"));
+    }
 
   });
 
