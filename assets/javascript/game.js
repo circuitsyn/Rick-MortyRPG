@@ -20,6 +20,7 @@ var gameStatus = {
     dead: false,
     defenderInPlace: false,
     yourCharacter: '',
+    defKillCount: 3,
 };
 
 var pickleRick = {
@@ -27,7 +28,7 @@ var pickleRick = {
     yourPlayer: false, //value to track if player chosen
     enemies: false, //value to track remainder enemies to choose from
     defender: false, //valie to track who the defender will be
-    health: 180,
+    health: 380,
     attackPwr: 15,
     counterAttkPwr: 15,
     damage: 0,
@@ -40,7 +41,7 @@ var mrMeeSeeks = {
     yourPlayer: false, //value to track if player chosen
     enemies: false, //value to track remainder enemies to choose from
     defender: false, //valie to track who the defender will be
-    health: 100,
+    health: 400,
     attackPwr: 5,
     counterAttkPwr: 20,
     damage: 0,
@@ -53,7 +54,7 @@ var scaryTerry = {
     yourPlayer: false, //value to track if player chosen
     enemies: false, //value to track remainder enemies to choose from
     defender: false, //valie to track who the defender will be
-    health: 120,
+    health: 420,
     attackPwr: 8,
     counterAttkPwr: 10,
     damage: 0,
@@ -66,7 +67,7 @@ var morty = {
     yourPlayer: false, //value to track if player chosen
     enemies: false, //value to track remainder enemies to choose from
     defender: false, //valie to track who the defender will be
-    health: 110,
+    health: 510,
     attackPwr: 10,
     counterAttkPwr: 5,
     damage: 0,
@@ -91,7 +92,8 @@ $("#char1").click(function() {
     else if (gameStatus.stage == 1) {
         $("#defender").append($("#char1"));
         defenderInPlace = true;
-        defenderChar = pickleRick;
+        // defenderChar = pickleRick;
+        defenderChar = Object.assign({},pickleRick);
     }
 
   });
@@ -111,14 +113,15 @@ $("#char2").click(function() {
     else if (gameStatus.stage == 1) {
         $("#defender").append($("#char2"));
         defenderInPlace = true;
-        defenderChar = mrMeeSeeks;
+        // defenderChar = mrMeeSeeks;
+        defenderChar = Object.assign({},mrMeeSeeks);
     }
 
   });
 
 //character three behavior flow
 $("#char3").click(function() {
-    
+    debugger;
     if (gameStatus.stage == 0){
         gameStatus.stage++;
         $("#yourChar").append($("#char3"));
@@ -131,7 +134,9 @@ $("#char3").click(function() {
     else if (gameStatus.stage == 1) {
         $("#defender").append($("#char3"));
         defenderInPlace = true;
-        defenderChar = scaryTerry;
+        // defenderChar = scaryTerry;
+        defenderChar = Object.assign({},scaryTerry);
+        console.log(defenderChar);
     }
 
   });
@@ -151,7 +156,8 @@ $("#char4").click(function() {
     else if (gameStatus.stage == 1) {
         $("#defender").append($("#char4"));
         defenderInPlace = true;
-        defenderChar = morty;
+        // defenderChar = morty;
+        defenderChar = Object.assign({},morty);
 
 
     }
@@ -168,6 +174,7 @@ $("#char4").click(function() {
   //attack button functionality
   $("#attack").on("click", function() {
     if (defenderInPlace == true){
+        
         //your health calculated and displayed based on click
         yourCharacter.health = yourCharacter.health - defenderChar.counterAttkPwr;
         console.log(yourCharacter.health);
@@ -176,16 +183,21 @@ $("#char4").click(function() {
         //defenders health calculated and displayed based on click
         defenderChar.health = defenderChar.health - yourCharacter.attackPwr;
         console.log(defenderChar.health);
-        yourCharacter.attackPwr += yourCharacter.attackPwr;
+        yourCharacter.attackPwr = (yourCharacter.attackPwr *2);
+        console.log(yourCharacter.attackPwr);
         $(defenderChar.text2Push).text(defenderChar.health);
 
-        if (defenderChar.health <= 0){
-            alert("You defeated " + defenderChar.name + "congrats! No pick your next opponent!");
+        if ((defenderChar.health <= 0)&&(defKillCount > 0)){
+            alert("You defeated " + defenderChar.name + " congrats! Now pick your next opponent!");
             $("#defender").empty();
+            gameStatus.defKillCount--;
 
         }
-        else if (yourCharacter.health <= 0) {
 
+        //else if statement to alert the user they have one as well as show the restart button
+        else if ((defenderChar.health <= 0)&&(defKillCount <= 0)) {
+            alert("You've won the game! Click Restart to try and win again!");
+            $("#restart").addClass("restartButtonShow");
         }
 
         //calculate bar decrease ratio for progress bars
@@ -197,6 +209,12 @@ $("#char4").click(function() {
     else {
         return;
     }
+  });
+
+  //onclick event for restart button to reload page to restart
+  $("#restart").on("click", function() {
+    window.location.reload();
+
   });
 
 

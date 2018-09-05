@@ -36,3 +36,13 @@ img {
     line-height: 40px;
     opacity: 0.9;
 } */
+
+.restartButtonHide{
+    visibility: hidden; 
+
+}
+
+.restartButtonShow{
+    visibility: visible !important; 
+
+}
