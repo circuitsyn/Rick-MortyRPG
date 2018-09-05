@@ -15,10 +15,11 @@ $(document).ready(function() {
 //window.location.reload(); -- reload windows
 
 //array to whole all objects to be checked
-var players = [pickleRick,mrMeeSeeks,scaryTerry,morty];
-
 var gameStatus = {
     stage: 0,
+    dead: false,
+    defenderInPlace: false,
+    yourCharacter: '',
 };
 
 var pickleRick = {
@@ -29,6 +30,8 @@ var pickleRick = {
     attackPwr: 15,
     counterAttkPwr: 15,
     damage: 0,
+    text2Push: '#health1',
+    barDecrease: '',
 };
 
 var mrMeeSeeks = {
@@ -39,6 +42,8 @@ var mrMeeSeeks = {
     attackPwr: 5,
     counterAttkPwr: 20,
     damage: 0,
+    text2Push: '#health2',
+    barDecrease: '',
 };
 
 var scaryTerry = {
@@ -49,6 +54,8 @@ var scaryTerry = {
     attackPwr: 8,
     counterAttkPwr: 10,
     damage: 0,
+    text2Push: '#health3',
+    barDecrease: '',
 };
 
 var morty = {
@@ -59,16 +66,19 @@ var morty = {
     attackPwr: 10,
     counterAttkPwr: 5,
     damage: 0,
+    text2Push: '#health4',
+    barDecrease: '',
 };
 
 console.log(gameStatus.stage);
 //character one behavior flow
 $("#char1").click(function() {
-    debugger;
+    
     if (gameStatus.stage == 0){
         gameStatus.stage++;
         console.log(gameStatus.stage);
         $("#yourChar").append($("#char1"));
+        yourCharacter = pickleRick;
         $("#enemiesAvail").append($("#char2"));
         $("#enemiesAvail").append($("#char3"));
         $("#enemiesAvail").append($("#char4"));
@@ -76,6 +86,8 @@ $("#char1").click(function() {
     // console.log(gameStatus.stage);
     else if (gameStatus.stage == 1) {
         $("#defender").append($("#char1"));
+        defenderInPlace = true;
+        defenderChar = pickleRick;
     }
 
   });
@@ -86,6 +98,7 @@ $("#char2").click(function() {
     if (gameStatus.stage == 0){
         gameStatus.stage++;
         $("#yourChar").append($("#char2"));
+        yourCharacter = mrMeeSeeks;
         $("#enemiesAvail").append($("#char1"));
         $("#enemiesAvail").append($("#char3"));
         $("#enemiesAvail").append($("#char4"));
@@ -93,8 +106,83 @@ $("#char2").click(function() {
     
     else if (gameStatus.stage == 1) {
         $("#defender").append($("#char2"));
+        defenderInPlace = true;
+        defenderChar = mrMeeSeeks;
     }
 
+  });
+
+//character three behavior flow
+$("#char3").click(function() {
+    
+    if (gameStatus.stage == 0){
+        gameStatus.stage++;
+        $("#yourChar").append($("#char3"));
+        yourCharacter = scarryTerry;
+        $("#enemiesAvail").append($("#char1"));
+        $("#enemiesAvail").append($("#char2"));
+        $("#enemiesAvail").append($("#char4"));
+    }
+    
+    else if (gameStatus.stage == 1) {
+        $("#defender").append($("#char3"));
+        defenderInPlace = true;
+        defenderChar = scaryTerry;
+    }
+
+  });
+
+//character four behavior flow
+$("#char4").click(function() {
+    
+    if (gameStatus.stage == 0){
+        gameStatus.stage++;
+        $("#yourChar").append($("#char4"));
+        yourCharacter = morty;
+        $("#enemiesAvail").append($("#char1"));
+        $("#enemiesAvail").append($("#char2"));
+        $("#enemiesAvail").append($("#char3"));
+    }
+    
+    else if (gameStatus.stage == 1) {
+        $("#defender").append($("#char4"));
+        defenderInPlace = true;
+        defenderChar = morty;
+
+
+    }
+
+    else if ((gameStatus.stage == 2) && (dead == false)) {
+
+    }
+    else {
+        return;
+    }
+
+  });
+
+  //attack button functionality
+  $("#attack").on("click", function() {
+    if (defenderInPlace == true){
+        //your health calculated and displayed based on click
+        yourCharacter.health = yourCharacter.health - defenderChar.counterAttkPwr;
+        console.log(yourCharacter.health);
+        $(yourCharacter.text2Push).text(yourCharacter.health);
+
+        //defenders health calculated and displayed based on click
+        defenderChar.health = defenderChar.health - yourCharacter.attackPwr;
+        console.log(defenderChar.health);
+        $(defenderChar.text2Push).text(defenderChar.health);
+
+        //calculate bar decrease ratio for progress bars
+        yourCharacter.barDecrease = (1-(yourCharacter.damage/yourCharacter.health))*100;
+        defenderChar.barDecrease = (1-(defenderChar.damage/defenderChar.health))*100;
+
+
+    }
+    else {
+        return;
+    }
   });
 
 
