@@ -23,6 +23,7 @@ var gameStatus = {
 };
 
 var pickleRick = {
+    name: 'Pickle Rick',
     yourPlayer: false, //value to track if player chosen
     enemies: false, //value to track remainder enemies to choose from
     defender: false, //valie to track who the defender will be
@@ -35,6 +36,7 @@ var pickleRick = {
 };
 
 var mrMeeSeeks = {
+    name: 'Mr. MeeSeeks',
     yourPlayer: false, //value to track if player chosen
     enemies: false, //value to track remainder enemies to choose from
     defender: false, //valie to track who the defender will be
@@ -47,6 +49,7 @@ var mrMeeSeeks = {
 };
 
 var scaryTerry = {
+    name: 'Scarry Terry',
     yourPlayer: false, //value to track if player chosen
     enemies: false, //value to track remainder enemies to choose from
     defender: false, //valie to track who the defender will be
@@ -59,6 +62,7 @@ var scaryTerry = {
 };
 
 var morty = {
+    name: 'Morty',
     yourPlayer: false, //value to track if player chosen
     enemies: false, //value to track remainder enemies to choose from
     defender: false, //valie to track who the defender will be
@@ -172,7 +176,17 @@ $("#char4").click(function() {
         //defenders health calculated and displayed based on click
         defenderChar.health = defenderChar.health - yourCharacter.attackPwr;
         console.log(defenderChar.health);
+        yourCharacter.attackPwr += yourCharacter.attackPwr;
         $(defenderChar.text2Push).text(defenderChar.health);
+
+        if (defenderChar.health <= 0){
+            alert("You defeated " + defenderChar.name + "congrats! No pick your next opponent!");
+            $("#defender").empty();
+
+        }
+        else if (yourCharacter.health <= 0) {
+
+        }
 
         //calculate bar decrease ratio for progress bars
         yourCharacter.barDecrease = (1-(yourCharacter.damage/yourCharacter.health))*100;
