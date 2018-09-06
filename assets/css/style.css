@@ -26,7 +26,7 @@ img {
     position: relative;
 }
 
-#health1, #health2, #health3, #health4 {
+caption {
     position: absolute;
     bottom: 10%;
     left: 5px;

@@ -35,7 +35,8 @@ var pickleRick = {
     counterAttkPwr: 10,
     damage: 0,
     text2Push: '#health1',
-    barDecrease: '',
+    barDecreaseYour: 0,
+    barDecreaseDef: 0,
 };
 
 var mrMeeSeeks = {
@@ -49,7 +50,8 @@ var mrMeeSeeks = {
     counterAttkPwr: 5,
     damage: 0,
     text2Push: '#health2',
-    barDecrease: '',
+    barDecreaseYour: 0,
+    barDecreaseDef: 0,
 };
 
 var scaryTerry = {
@@ -63,7 +65,8 @@ var scaryTerry = {
     counterAttkPwr: 10,
     damage: 0,
     text2Push: '#health3',
-    barDecrease: '',
+    barDecreaseYour: 0,
+    barDecreaseDef: 0,
 };
 
 var morty = {
@@ -77,7 +80,8 @@ var morty = {
     counterAttkPwr: 5,
     damage: 0,
     text2Push: '#health4',
-    barDecrease: '',
+    barDecreaseYour: 0,
+    barDecreaseDef: 0,
 };
 
 console.log(gameStatus.stage);
@@ -101,7 +105,6 @@ $("#char1").click(function() {
             $("#defender").append($("#char1"));
             defenderInPlace = true;
             gameStatus.gameOn = true;
-            // defenderChar = pickleRick;
             defenderChar = Object.assign({},pickleRick);
         }
     }
@@ -127,7 +130,6 @@ $("#char2").click(function() {
             $("#defender").append($("#char2"));
             defenderInPlace = true;
             gameStatus.gameOn = true;
-            // defenderChar = mrMeeSeeks;
             defenderChar = Object.assign({},mrMeeSeeks);
         }
     }
@@ -153,9 +155,7 @@ $("#char3").click(function() {
             $("#defender").append($("#char3"));
             defenderInPlace = true;
             gameStatus.gameOn = true;
-            // defenderChar = scaryTerry;
             defenderChar = Object.assign({},scaryTerry);
-            console.log(defenderChar);
         }
     }
     else {
@@ -180,7 +180,6 @@ $("#char4").click(function() {
             $("#defender").append($("#char4"));
             defenderInPlace = true;
             gameStatus.gameOn = true;
-            // defenderChar = morty;
             defenderChar = Object.assign({},morty);
         }
     }
@@ -203,18 +202,23 @@ $("#char4").click(function() {
         
         //your health calculated and displayed based on click
         yourCharacter.health = yourCharacter.health - defenderChar.counterAttkPwr;
-        console.log(yourCharacter.health);
         $(yourCharacter.text2Push).text(yourCharacter.health);
+        yourCharacter.damage += defenderChar.counterAttkPwr;
 
         //defenders health calculated and displayed based on click
         defenderChar.health = defenderChar.health - yourCharacter.attackPwr;
-        console.log(defenderChar.health);
-        
-        console.log("attk Hold " + yourCharacter.attkHold);
         yourCharacter.attackPwr += yourCharacter.attkHold;
-
-        console.log("attack power " + yourCharacter.attackPwr);
         $(defenderChar.text2Push).text(defenderChar.health);
+        defenderChar.damage += yourCharacter.attackPwr;
+
+        //calculate bar decrease ratio for progress bars
+        yourCharacter.barDecreaseYour = (1-(yourCharacter.damage/yourCharacter.health))*100;
+        $(yourCharacter.text2Push).css('width', (yourCharacter.barDecreaseYour +'%'));
+        console.log(yourCharacter.barDecreaseYour);
+        defenderChar.barDecreaseDef = (1-(defenderChar.damage/defenderChar.health))*100;
+        $(defenderChar.text2Push).css('width', (yourCharacter.barDecreaseYour +'%'));
+        console.log(yourCharacter.barDecreaseDef);
+
 
         if ((defenderChar.health <= 0)&&(gameStatus.defKillCount > 0)){
             alert("You defeated " + defenderChar.name + " congrats! Now pick your next opponent!");
@@ -228,16 +232,8 @@ $("#char4").click(function() {
 
         }
 
-        //else if statement to alert the user they have one as well as show the restart button
-        // else if ((defenderChar.health <= 0)&&(gameStatus.defKillCount <= 0)) {
-        //     alert("You've won the game! Click Restart to try and win again!");
-        //     $("#restart").addClass("restartButtonShow");
-            
-        // }
-
-        //calculate bar decrease ratio for progress bars
-        // yourCharacter.barDecrease = (1-(yourCharacter.damage/yourCharacter.health))*100;
-        // defenderChar.barDecrease = (1-(defenderChar.damage/defenderChar.health))*100;
+        
+        
 
 
     }
