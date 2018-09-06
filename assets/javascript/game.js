@@ -28,9 +28,9 @@ var pickleRick = {
     yourPlayer: false, //value to track if player chosen
     enemies: false, //value to track remainder enemies to choose from
     defender: false, //valie to track who the defender will be
-    health: 380,
-    attackPwr: 15,
-    counterAttkPwr: 15,
+    health: 180,
+    attackPwr: 10,
+    counterAttkPwr: 10,
     damage: 0,
     text2Push: '#health1',
     barDecrease: '',
@@ -41,9 +41,9 @@ var mrMeeSeeks = {
     yourPlayer: false, //value to track if player chosen
     enemies: false, //value to track remainder enemies to choose from
     defender: false, //valie to track who the defender will be
-    health: 400,
-    attackPwr: 5,
-    counterAttkPwr: 20,
+    health: 100,
+    attackPwr: 15,
+    counterAttkPwr: 5,
     damage: 0,
     text2Push: '#health2',
     barDecrease: '',
@@ -54,7 +54,7 @@ var scaryTerry = {
     yourPlayer: false, //value to track if player chosen
     enemies: false, //value to track remainder enemies to choose from
     defender: false, //valie to track who the defender will be
-    health: 420,
+    health: 150,
     attackPwr: 8,
     counterAttkPwr: 10,
     damage: 0,
@@ -67,7 +67,7 @@ var morty = {
     yourPlayer: false, //value to track if player chosen
     enemies: false, //value to track remainder enemies to choose from
     defender: false, //valie to track who the defender will be
-    health: 510,
+    health: 120,
     attackPwr: 10,
     counterAttkPwr: 5,
     damage: 0,
@@ -183,7 +183,9 @@ $("#char4").click(function() {
         //defenders health calculated and displayed based on click
         defenderChar.health = defenderChar.health - yourCharacter.attackPwr;
         console.log(defenderChar.health);
-        yourCharacter.attackPwr = (yourCharacter.attackPwr *2);
+        let temp = yourCharacter.attackPwr;
+        yourCharacter.attackPwr += temp;
+
         console.log(yourCharacter.attackPwr);
         $(defenderChar.text2Push).text(defenderChar.health);
 
