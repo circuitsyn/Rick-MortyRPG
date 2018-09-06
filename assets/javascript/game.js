@@ -50,7 +50,7 @@ var mrMeeSeeks = {
 };
 
 var scaryTerry = {
-    name: 'Scarry Terry',
+    name: 'Scary Terry',
     yourPlayer: false, //value to track if player chosen
     enemies: false, //value to track remainder enemies to choose from
     defender: false, //valie to track who the defender will be
@@ -121,11 +121,11 @@ $("#char2").click(function() {
 
 //character three behavior flow
 $("#char3").click(function() {
-    debugger;
+    
     if (gameStatus.stage == 0){
         gameStatus.stage++;
         $("#yourChar").append($("#char3"));
-        yourCharacter = scarryTerry;
+        yourCharacter = scaryTerry;
         $("#enemiesAvail").append($("#char1"));
         $("#enemiesAvail").append($("#char2"));
         $("#enemiesAvail").append($("#char4"));
@@ -187,7 +187,7 @@ $("#char4").click(function() {
         console.log(yourCharacter.attackPwr);
         $(defenderChar.text2Push).text(defenderChar.health);
 
-        if ((defenderChar.health <= 0)&&(defKillCount > 0)){
+        if ((defenderChar.health <= 0)&&(gameStatus.defKillCount > 0)){
             alert("You defeated " + defenderChar.name + " congrats! Now pick your next opponent!");
             $("#defender").empty();
             gameStatus.defKillCount--;
@@ -195,14 +195,14 @@ $("#char4").click(function() {
         }
 
         //else if statement to alert the user they have one as well as show the restart button
-        else if ((defenderChar.health <= 0)&&(defKillCount <= 0)) {
+        else if ((defenderChar.health <= 0)&&(gameStatus.defKillCount <= 0)) {
             alert("You've won the game! Click Restart to try and win again!");
             $("#restart").addClass("restartButtonShow");
         }
 
         //calculate bar decrease ratio for progress bars
-        yourCharacter.barDecrease = (1-(yourCharacter.damage/yourCharacter.health))*100;
-        defenderChar.barDecrease = (1-(defenderChar.damage/defenderChar.health))*100;
+        // yourCharacter.barDecrease = (1-(yourCharacter.damage/yourCharacter.health))*100;
+        // defenderChar.barDecrease = (1-(defenderChar.damage/defenderChar.health))*100;
 
 
     }
