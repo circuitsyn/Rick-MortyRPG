@@ -32,7 +32,7 @@ var pickleRick = {
     health: 180,
     attackPwr: 10,
     attkHold: 0,
-    counterAttkPwr: 10,
+    counterAttkPwr: 20,
     damage: 0,
     text2Push: '#health1',
     barDecreaseYour: 0,
