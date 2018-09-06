@@ -1,6 +1,24 @@
+@font-face {
+    font-family: "headerFont";
+    src: url("../../assets/fonts/RMStandardFont.woff") format("woff");
+}
+@font-face {
+    font-family: "mainFont";
+    src: url("../../assets/fonts/RCbodyFont.woff") format("woff");
+}
+@font-face {
+    font-family: "buttonFont";
+    src: url("../../assets/fonts/RCButtonFont.woff") format("woff");
+}
+@font-face {
+    font-family: "titleFont";
+    src: url("../../assets/fonts/RCTitleFont.woff") format("woff");
+}
+
 body, html {
     height: 100%;
     color: white;
+    font-family: mainFont !important;
 }
 
 .bg {
@@ -26,7 +44,7 @@ img {
     position: relative;
 }
 
-caption {
+.caption {
     position: absolute;
     bottom: 10%;
     left: 5px;
@@ -37,8 +55,28 @@ caption {
     opacity: 0.8;
     text-align: center;
     border: solid white 2px;
-    border-radius: 25%;
+    border-radius: 25px;
     font-weight: bold;
+}
+
+h2 {
+    background-color: #4aaaa5;
+    border: solid white 2px;
+    margin: auto;
+    text-align: center;
+    border-radius: 25px;
+    /* opacity: 0.8; */
+    padding: 10px;
+    font-family: headerFont !important;
+    
+    
+}
+
+h1 {
+    font-family: titleFont !important;
+    font-size: 80px;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    padding: 20px;
 }
 
 .restartButtonHide{
@@ -49,4 +87,15 @@ caption {
 .restartButtonShow{
     visibility: visible !important; 
 
+}
+
+button {
+    padding: 10px;
+    border-radius: 15px;
+    margin: 15px 0px 15px 42%;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
 }

@@ -96,6 +96,7 @@ $("#char1").click(function() {
             $("#yourChar").append($("#char1"));
             yourCharacter = pickleRick;
             pickleRick.attkHold = pickleRick.attackPwr;
+            $(yourCharacter.text2Push).addClass( "progress-bar-animated progress-bar-striped" ); //change in progress characters to an animated bar
             $("#enemiesAvail").append($("#char2"));
             $("#enemiesAvail").append($("#char3"));
             $("#enemiesAvail").append($("#char4"));
@@ -106,6 +107,7 @@ $("#char1").click(function() {
             defenderInPlace = true;
             gameStatus.gameOn = true;
             defenderChar = Object.assign({},pickleRick);
+            $(defenderChar.text2Push).addClass( "progress-bar-animated progress-bar-striped" ); //change in progress characters to an animated bar
         }
     }
     else {
@@ -121,6 +123,7 @@ $("#char2").click(function() {
             $("#yourChar").append($("#char2"));
             yourCharacter = mrMeeSeeks;
             mrMeeSeeks.attkHold = mrMeeSeeks.attackPwr;
+            $(yourCharacter.text2Push).addClass( "progress-bar-animated progress-bar-striped" ); //change in progress characters to an animated bar
             $("#enemiesAvail").append($("#char1"));
             $("#enemiesAvail").append($("#char3"));
             $("#enemiesAvail").append($("#char4"));
@@ -131,6 +134,7 @@ $("#char2").click(function() {
             defenderInPlace = true;
             gameStatus.gameOn = true;
             defenderChar = Object.assign({},mrMeeSeeks);
+            $(defenderChar.text2Push).addClass( "progress-bar-animated progress-bar-striped" ); //change in progress characters to an animated bar
         }
     }
     else {
@@ -146,6 +150,7 @@ $("#char3").click(function() {
             $("#yourChar").append($("#char3"));
             yourCharacter = scaryTerry;
             scaryTerry.attkHold = scaryTerry.attackPwr;
+            $(yourCharacter.text2Push).addClass( "progress-bar-animated progress-bar-striped" ); //change in progress characters to an animated bar
             $("#enemiesAvail").append($("#char1"));
             $("#enemiesAvail").append($("#char2"));
             $("#enemiesAvail").append($("#char4"));
@@ -156,6 +161,7 @@ $("#char3").click(function() {
             defenderInPlace = true;
             gameStatus.gameOn = true;
             defenderChar = Object.assign({},scaryTerry);
+            $(defenderChar.text2Push).addClass( "progress-bar-animated progress-bar-striped" ); //change in progress characters to an animated bar
         }
     }
     else {
@@ -171,6 +177,7 @@ $("#char4").click(function() {
             $("#yourChar").append($("#char4"));
             yourCharacter = morty;
             morty.attkHold = morty.attackPwr;
+            $(yourCharacter.text2Push).addClass( "progress-bar-animated progress-bar-striped" ); //change in progress characters to an animated bar
             $("#enemiesAvail").append($("#char1"));
             $("#enemiesAvail").append($("#char2"));
             $("#enemiesAvail").append($("#char3"));
@@ -181,6 +188,7 @@ $("#char4").click(function() {
             defenderInPlace = true;
             gameStatus.gameOn = true;
             defenderChar = Object.assign({},morty);
+            $(defenderChar.text2Push).addClass( "progress-bar-animated progress-bar-striped" ); //change in progress characters to an animated bar
         }
     }
     else {
