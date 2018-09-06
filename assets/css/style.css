@@ -22,20 +22,24 @@ img {
     background-color: transparent !important;
 }
 
-/* .img-thumbnail {
+.img-thumbnail {
     position: relative;
 }
 
-.caption {
+#health1, #health2, #health3, #health4 {
     position: absolute;
-    bottom: 5%;
+    bottom: 10%;
     left: 5px;
-    width: 97%;
+    width: 50%;
     color: #ffffff;
     background-color: #4aaaa5;
-    line-height: 40px;
-    opacity: 0.9;
-} */
+    line-height: 25px;
+    opacity: 0.8;
+    text-align: center;
+    border: solid white 2px;
+    border-radius: 25%;
+    font-weight: bold;
+}
 
 .restartButtonHide{
     visibility: hidden; 

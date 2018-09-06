@@ -221,15 +221,19 @@ $("#char4").click(function() {
             $("#defender").empty();
             gameStatus.defKillCount--;
             gameStatus.gameOn = false;
+            if (gameStatus.defKillCount == 0){
+                alert("You've won the game! Click Restart to try and win again!");
+                $("#restart").addClass("restartButtonShow");
+            }
 
         }
 
         //else if statement to alert the user they have one as well as show the restart button
-        else if ((defenderChar.health <= 0)&&(gameStatus.defKillCount <= 0)) {
-            alert("You've won the game! Click Restart to try and win again!");
-            $("#restart").addClass("restartButtonShow");
+        // else if ((defenderChar.health <= 0)&&(gameStatus.defKillCount <= 0)) {
+        //     alert("You've won the game! Click Restart to try and win again!");
+        //     $("#restart").addClass("restartButtonShow");
             
-        }
+        // }
 
         //calculate bar decrease ratio for progress bars
         // yourCharacter.barDecrease = (1-(yourCharacter.damage/yourCharacter.health))*100;
