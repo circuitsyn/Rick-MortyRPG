@@ -30,6 +30,7 @@ var pickleRick = {
     defender: false, //valie to track who the defender will be
     health: 180,
     attackPwr: 10,
+    attkHold: 0,
     counterAttkPwr: 10,
     damage: 0,
     text2Push: '#health1',
@@ -43,6 +44,7 @@ var mrMeeSeeks = {
     defender: false, //valie to track who the defender will be
     health: 100,
     attackPwr: 15,
+    attkHold: 0,
     counterAttkPwr: 5,
     damage: 0,
     text2Push: '#health2',
@@ -56,6 +58,7 @@ var scaryTerry = {
     defender: false, //valie to track who the defender will be
     health: 150,
     attackPwr: 8,
+    attkHold: 0,
     counterAttkPwr: 10,
     damage: 0,
     text2Push: '#health3',
@@ -69,6 +72,7 @@ var morty = {
     defender: false, //valie to track who the defender will be
     health: 120,
     attackPwr: 10,
+    attkHold: 0,
     counterAttkPwr: 5,
     damage: 0,
     text2Push: '#health4',
@@ -84,6 +88,7 @@ $("#char1").click(function() {
         console.log(gameStatus.stage);
         $("#yourChar").append($("#char1"));
         yourCharacter = pickleRick;
+        pickleRick.attkHold = pickleRick.attackPwr;
         $("#enemiesAvail").append($("#char2"));
         $("#enemiesAvail").append($("#char3"));
         $("#enemiesAvail").append($("#char4"));
@@ -105,6 +110,7 @@ $("#char2").click(function() {
         gameStatus.stage++;
         $("#yourChar").append($("#char2"));
         yourCharacter = mrMeeSeeks;
+        mrMeeSeeks.attkHold = mrMeeSeeks.attackPwr;
         $("#enemiesAvail").append($("#char1"));
         $("#enemiesAvail").append($("#char3"));
         $("#enemiesAvail").append($("#char4"));
@@ -126,6 +132,7 @@ $("#char3").click(function() {
         gameStatus.stage++;
         $("#yourChar").append($("#char3"));
         yourCharacter = scaryTerry;
+        scaryTerry.attkHold = scaryTerry.attackPwr;
         $("#enemiesAvail").append($("#char1"));
         $("#enemiesAvail").append($("#char2"));
         $("#enemiesAvail").append($("#char4"));
@@ -148,6 +155,7 @@ $("#char4").click(function() {
         gameStatus.stage++;
         $("#yourChar").append($("#char4"));
         yourCharacter = morty;
+        morty.attkHold = morty.attackPwr;
         $("#enemiesAvail").append($("#char1"));
         $("#enemiesAvail").append($("#char2"));
         $("#enemiesAvail").append($("#char3"));
@@ -183,10 +191,11 @@ $("#char4").click(function() {
         //defenders health calculated and displayed based on click
         defenderChar.health = defenderChar.health - yourCharacter.attackPwr;
         console.log(defenderChar.health);
-        let temp = yourCharacter.attackPwr;
-        yourCharacter.attackPwr += temp;
+        
+        console.log("attk Hold " + yourCharacter.attkHold);
+        yourCharacter.attackPwr += yourCharacter.attkHold;
 
-        console.log(yourCharacter.attackPwr);
+        console.log("attack power " + yourCharacter.attackPwr);
         $(defenderChar.text2Push).text(defenderChar.health);
 
         if ((defenderChar.health <= 0)&&(gameStatus.defKillCount > 0)){
