@@ -220,6 +220,7 @@ $("#char4").click(function() {
             alert("You defeated " + defenderChar.name + " congrats! Now pick your next opponent!");
             $("#defender").empty();
             gameStatus.defKillCount--;
+            gameStatus.gameOn = false;
 
         }
 
@@ -227,7 +228,7 @@ $("#char4").click(function() {
         else if ((defenderChar.health <= 0)&&(gameStatus.defKillCount <= 0)) {
             alert("You've won the game! Click Restart to try and win again!");
             $("#restart").addClass("restartButtonShow");
-            gameStatus.gameOn = false;
+            
         }
 
         //calculate bar decrease ratio for progress bars
