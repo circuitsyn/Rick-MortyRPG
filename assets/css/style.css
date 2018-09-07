@@ -20,14 +20,16 @@ body, html {
     color: white;
     font-family: mainFont !important;
     opacity: 1;
+    overflow-x: scroll;
 }
 
 .bg {
 /*Background image:*/
 background-image: url("../images/backdropRnM.jpg");
 
+
  /* Full height */
- height: 100%;
+ 
 
  /* Center and scale the image nicely */
  background-position: center;

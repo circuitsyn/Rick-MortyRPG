@@ -22,6 +22,9 @@ var gameStatus = {
     yourCharacter: '',
     defKillCount: 3,
     gameOn: false, //boolean key to track single defender in game location
+    startMusic: '/assets/audio/Show_me_what_you_got!.mp3',
+    loseMusic:  '/assets/audio/disqualified.mp3',
+
 };
 
 var pickleRick = {
@@ -83,6 +86,8 @@ var morty = {
     barDecreaseYour: 0,
     barDecreaseDef: 0,
 };
+//play music to start game
+// (gameStatus.startMusic).play();
 
 console.log(gameStatus.stage);
 //character one behavior flow
