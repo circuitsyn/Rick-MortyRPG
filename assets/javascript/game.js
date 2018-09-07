@@ -1,26 +1,11 @@
 $(document).ready(function() {
-//scrap code:
-//  $().empty(); - used to clear contents of a div or item by id
-//  .addClass("classNameHere") to be used to add a class for styling
 
-//below loop is checking array for value to do an action
-// var found = false;
-// for(var i = 0; i < players.length; i++) {
-//     if (players[i].yourPlayer == 'true') {
-//         $("#yourChar").append(#char1);
-//         break;
-//     }
-// }
-
-//window.location.reload(); -- reload windows
-
-//array to whole all objects to be checked
+//game status object to hold markers for game
 var gameStatus = {
-    stage: 0,
-    dead: false,
-    defenderInPlace: false,
-    yourCharacter: '',
-    defKillCount: 3,
+    stage: 0, //key to track what stage the game is at
+    defenderInPlace: false, //boolean check used to make sure a defender is in place and no one else can
+    yourCharacter: '', //key to hold the your player object
+    defKillCount: 3, //key used to track kills to ask if you won the game later in if statement
     gameOn: false, //boolean key to track single defender in game location
     startMusic: '/assets/audio/Show_me_what_you_got!.mp3',
     loseMusic:  '/assets/audio/disqualified.mp3',
@@ -32,14 +17,14 @@ var pickleRick = {
     yourPlayer: false, //value to track if player chosen
     enemies: false, //value to track remainder enemies to choose from
     defender: false, //valie to track who the defender will be
-    health: 180,
-    attackPwr: 10,
-    attkHold: 0,
+    health: 180, //starting health
+    attackPwr: 10, //attack power your character starts with
+    attkHold: 0, //
     counterAttkPwr: 20,
     damage: 0,
     text2Push: '#health1',
-    barDecreaseYour: 0,
-    barDecreaseDef: 0,
+    barDecreaseYour: 0, //tracking bar decrease amount to push to the margin style in the progress bar for your character
+    barDecreaseDef: 0, //tracking bar decrease amount to push to the margin style in the progress bar for defender character
 };
 
 var mrMeeSeeks = {
@@ -89,32 +74,38 @@ var morty = {
 //play music to start game
 // (gameStatus.startMusic).play();
 
-console.log(gameStatus.stage);
+
+
 //character one behavior flow
 $("#char1").click(function() {
+
+    //Start of nested if statement to make sure click buttons on characters are disabled once characters are in place until win or loss
     if (gameStatus.gameOn != true){
 
 
         if (gameStatus.stage == 0){
-            gameStatus.stage++;
-            console.log(gameStatus.stage);
-            $("#yourChar").append($("#char1"));
-            yourCharacter = pickleRick;
-            pickleRick.attkHold = pickleRick.attackPwr;
+            gameStatus.stage++; //increase by 1 to move game stage checker to next level
+            
+            $("#yourChar").append($("#char1")); //appent character 1 to your character section
+            yourCharacter = pickleRick; //store charcter object into variable for game manipulation
+            pickleRick.attkHold = pickleRick.attackPwr; //establish attack power for doubling
             $(yourCharacter.text2Push).addClass( "progress-bar-animated progress-bar-striped" ); //change in progress characters to an animated bar
-            $("#enemiesAvail").append($("#char2"));
-            $("#enemiesAvail").append($("#char3"));
-            $("#enemiesAvail").append($("#char4"));
+            $("#enemiesAvail").append($("#char2")); //move character 2 to enemies available
+            $("#enemiesAvail").append($("#char3")); //move character 3 to enemies available
+            $("#enemiesAvail").append($("#char4")); //move character 4 to enemies available
         }
-        // console.log(gameStatus.stage);
+        
+        //else if statement to move unselected starter character to defender area from enemies list
         else if (gameStatus.stage == 1) {
-            $("#defender").append($("#char1"));
-            defenderInPlace = true;
-            gameStatus.gameOn = true;
-            defenderChar = Object.assign({},pickleRick);
+            $("#defender").append($("#char1")); //append chosen enemy to defender area
+            defenderInPlace = true; //sets value to later check if defender is in place
+            gameStatus.gameOn = true; //gameOn to be used to make sure only attack button works
+            defenderChar = Object.assign({},pickleRick); //assigns defender values from chosen defender
             $(defenderChar.text2Push).addClass( "progress-bar-animated progress-bar-striped" ); //change in progress characters to an animated bar
         }
     }
+
+    //used to do nothing if no other condition is met
     else {
         
     }
@@ -200,17 +191,12 @@ $("#char4").click(function() {
 
     }
 
-        // else if ((gameStatus.stage == 2) && (dead == false)) {
-
-        // }
-        // else {
-        //     return;
-        // }
-
   });
 
   //attack button functionality
   $("#attack").on("click", function() {
+
+      //confirming defender is in place before start
     if (defenderInPlace == true){
         
         //your health calculated and displayed based on click
@@ -232,23 +218,21 @@ $("#char4").click(function() {
         $(defenderChar.text2Push).css('width', (yourCharacter.barDecreaseYour +'%'));
         console.log(yourCharacter.barDecreaseDef);
 
-
+        //Check to see if you defeated a character but still playing
         if ((defenderChar.health <= 0)&&(gameStatus.defKillCount > 0)){
             alert("You defeated " + defenderChar.name + " congrats! Now pick your next opponent!");
             $("#defender").empty();
             gameStatus.defKillCount--;
             gameStatus.gameOn = false;
+
+            //Check to see if you defeated all characters
             if (gameStatus.defKillCount == 0){
                 alert("You've won the game! Click Restart to try and win again!");
                 $("#restart").addClass("restartButtonShow");
             }
 
         }
-
         
-        
-
-
     }
     else {
         return;
