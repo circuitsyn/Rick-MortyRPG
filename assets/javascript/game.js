@@ -12,6 +12,9 @@ var gameStatus = {
 
 };
 
+// var gameStatusAudio = new Audio();
+// gameStatusAudio.src = "/assets/audio/Show_me_what_you_got!.mp3";
+
 var pickleRick = {
     name: 'Pickle Rick',
     yourPlayer: false, //value to track if player chosen
@@ -20,9 +23,11 @@ var pickleRick = {
     health: 180, //starting health
     attackPwr: 10, //attack power your character starts with
     attkHold: 0, //
-    counterAttkPwr: 20,
+    counterAttkPwr: 30,
     damage: 0,
     text2Push: '#health1',
+    marginHealthHoldAsYour: 0, //variable to hold health for margin as yourChar
+    marginHealthHoldAsDef: 0, //variable to hold health as Defender
     barDecreaseYour: 0, //tracking bar decrease amount to push to the margin style in the progress bar for your character
     barDecreaseDef: 0, //tracking bar decrease amount to push to the margin style in the progress bar for defender character
 };
@@ -38,6 +43,8 @@ var mrMeeSeeks = {
     counterAttkPwr: 5,
     damage: 0,
     text2Push: '#health2',
+    marginHealthHoldAsYour: 0, //variable to hold health for margin as yourChar
+    marginHealthHoldAsDef: 0, //variable to hold health as Defender
     barDecreaseYour: 0,
     barDecreaseDef: 0,
 };
@@ -53,6 +60,8 @@ var scaryTerry = {
     counterAttkPwr: 10,
     damage: 0,
     text2Push: '#health3',
+    marginHealthHoldAsYour: 0, //variable to hold health for margin as yourChar
+    marginHealthHoldAsDef: 0, //variable to hold health as Defender
     barDecreaseYour: 0,
     barDecreaseDef: 0,
 };
@@ -68,11 +77,13 @@ var morty = {
     counterAttkPwr: 5,
     damage: 0,
     text2Push: '#health4',
+    marginHealthHoldAsYour: 0, //variable to hold health for margin as yourChar
+    marginHealthHoldAsDef: 0, //variable to hold health as Defender
     barDecreaseYour: 0,
     barDecreaseDef: 0,
 };
 //play music to start game
-// (gameStatus.startMusic).play();
+// gameStatusAudio.play();
 
 
 
@@ -89,6 +100,7 @@ $("#char1").click(function() {
             $("#yourChar").append($("#char1")); //appent character 1 to your character section
             yourCharacter = pickleRick; //store charcter object into variable for game manipulation
             pickleRick.attkHold = pickleRick.attackPwr; //establish attack power for doubling
+            pickleRick.marginHealthHoldAsYour = pickleRick.health;
             $(yourCharacter.text2Push).addClass( "progress-bar-animated progress-bar-striped" ); //change in progress characters to an animated bar
             $("#enemiesAvail").append($("#char2")); //move character 2 to enemies available
             $("#enemiesAvail").append($("#char3")); //move character 3 to enemies available
@@ -98,8 +110,9 @@ $("#char1").click(function() {
         //else if statement to move unselected starter character to defender area from enemies list
         else if (gameStatus.stage == 1) {
             $("#defender").append($("#char1")); //append chosen enemy to defender area
-            defenderInPlace = true; //sets value to later check if defender is in place
+            gameStatus.defenderInPlace = true; //sets value to later check if defender is in place
             gameStatus.gameOn = true; //gameOn to be used to make sure only attack button works
+            pickleRick.marginHealthHoldAsDef = pickleRick.health;  
             defenderChar = Object.assign({},pickleRick); //assigns defender values from chosen defender
             $(defenderChar.text2Push).addClass( "progress-bar-animated progress-bar-striped" ); //change in progress characters to an animated bar
         }
@@ -119,6 +132,7 @@ $("#char2").click(function() {
             $("#yourChar").append($("#char2"));
             yourCharacter = mrMeeSeeks;
             mrMeeSeeks.attkHold = mrMeeSeeks.attackPwr;
+            mrMeeSeeks.marginHealthHoldAsYour = mrMeeSeeks.health;
             $(yourCharacter.text2Push).addClass( "progress-bar-animated progress-bar-striped" ); //change in progress characters to an animated bar
             $("#enemiesAvail").append($("#char1"));
             $("#enemiesAvail").append($("#char3"));
@@ -127,8 +141,9 @@ $("#char2").click(function() {
         
         else if (gameStatus.stage == 1) {
             $("#defender").append($("#char2"));
-            defenderInPlace = true;
+            gameStatus.defenderInPlace = true;
             gameStatus.gameOn = true;
+            mrMeeSeeks.marginHealthHoldAsDef = mrMeeSeeks.health; 
             defenderChar = Object.assign({},mrMeeSeeks);
             $(defenderChar.text2Push).addClass( "progress-bar-animated progress-bar-striped" ); //change in progress characters to an animated bar
         }
@@ -146,6 +161,7 @@ $("#char3").click(function() {
             $("#yourChar").append($("#char3"));
             yourCharacter = scaryTerry;
             scaryTerry.attkHold = scaryTerry.attackPwr;
+            scaryTerry.marginHealthHoldAsYour = scaryTerry.health;
             $(yourCharacter.text2Push).addClass( "progress-bar-animated progress-bar-striped" ); //change in progress characters to an animated bar
             $("#enemiesAvail").append($("#char1"));
             $("#enemiesAvail").append($("#char2"));
@@ -154,8 +170,9 @@ $("#char3").click(function() {
         
         else if (gameStatus.stage == 1) {
             $("#defender").append($("#char3"));
-            defenderInPlace = true;
+            gameStatus.defenderInPlace = true;
             gameStatus.gameOn = true;
+            scaryTerry.marginHealthHoldAsDef = scaryTerry.health; 
             defenderChar = Object.assign({},scaryTerry);
             $(defenderChar.text2Push).addClass( "progress-bar-animated progress-bar-striped" ); //change in progress characters to an animated bar
         }
@@ -173,6 +190,7 @@ $("#char4").click(function() {
             $("#yourChar").append($("#char4"));
             yourCharacter = morty;
             morty.attkHold = morty.attackPwr;
+            morty.marginHealthHoldAsYour = morty.health;
             $(yourCharacter.text2Push).addClass( "progress-bar-animated progress-bar-striped" ); //change in progress characters to an animated bar
             $("#enemiesAvail").append($("#char1"));
             $("#enemiesAvail").append($("#char2"));
@@ -181,8 +199,9 @@ $("#char4").click(function() {
         
         else if (gameStatus.stage == 1) {
             $("#defender").append($("#char4"));
-            defenderInPlace = true;
+            gameStatus.defenderInPlace = true;
             gameStatus.gameOn = true;
+            morty.marginHealthHoldAsDef = morty.health;
             defenderChar = Object.assign({},morty);
             $(defenderChar.text2Push).addClass( "progress-bar-animated progress-bar-striped" ); //change in progress characters to an animated bar
         }
@@ -197,7 +216,7 @@ $("#char4").click(function() {
   $("#attack").on("click", function() {
 
       //confirming defender is in place before start
-    if (defenderInPlace == true){
+    if (gameStatus.defenderInPlace == true){
         
         //your health calculated and displayed based on click
         yourCharacter.health = yourCharacter.health - defenderChar.counterAttkPwr;
@@ -211,12 +230,14 @@ $("#char4").click(function() {
         defenderChar.damage += yourCharacter.attackPwr;
 
         //calculate bar decrease ratio for progress bars
-        yourCharacter.barDecreaseYour = (1-(yourCharacter.damage/yourCharacter.health))*100;
+        yourCharacter.barDecreaseYour = (1-(yourCharacter.damage/yourCharacter.marginHealthHoldAsYour))*100;
         $(yourCharacter.text2Push).css('width', (yourCharacter.barDecreaseYour +'%'));
-        console.log(yourCharacter.barDecreaseYour);
-        defenderChar.barDecreaseDef = (1-(defenderChar.damage/defenderChar.health))*100;
-        $(defenderChar.text2Push).css('width', (yourCharacter.barDecreaseYour +'%'));
-        console.log(yourCharacter.barDecreaseDef);
+        // console.log(yourCharacter.barDecreaseYour);
+        defenderChar.barDecreaseDef = (1-(defenderChar.damage/defenderChar.marginHealthHoldAsDef))*100;
+        $(defenderChar.text2Push).css('width', (yourCharacter.barDecreaseDef +'%'));
+        // console.log(yourCharacter.barDecreaseDef);
+        console.log("main char health: " + yourCharacter.health);
+        console.log("defender char health: " + defenderChar.health);
 
         //Check to see if you defeated a character but still playing
         if ((defenderChar.health <= 0)&&(gameStatus.defKillCount > 0)){
@@ -232,7 +253,11 @@ $("#char4").click(function() {
             }
 
         }
-        
+        // console.log(yourCharacter.health);
+        else if ((yourCharacter.health <= 0)){
+            alert("You've Lost! Click Restart to try again!");
+            $("#restart").addClass("restartButtonShow");
+        }
     }
     else {
         return;
