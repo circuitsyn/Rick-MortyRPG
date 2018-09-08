@@ -231,10 +231,14 @@ $("#char4").click(function() {
 
         //calculate bar decrease ratio for progress bars
         yourCharacter.barDecreaseYour = (1-(yourCharacter.damage/yourCharacter.marginHealthHoldAsYour))*100;
-        $(yourCharacter.text2Push).css('width', (yourCharacter.barDecreaseYour +'%'));
+        console.log("margin value your: " + yourCharacter.barDecreaseYour);
+        console.log(yourCharacter.text2Push);
+        $(yourCharacter.text2Push).css('width', (yourCharacter.barDecreaseYour +'%' + ' !important'));
         // console.log(yourCharacter.barDecreaseYour);
         defenderChar.barDecreaseDef = (1-(defenderChar.damage/defenderChar.marginHealthHoldAsDef))*100;
-        $(defenderChar.text2Push).css('width', (yourCharacter.barDecreaseDef +'%'));
+        console.log("margin value def: " + defenderChar.barDecreaseDef);
+        console.log(defenderChar.text2Push);
+        $(defenderChar.text2Push).css('width', (yourCharacter.barDecreaseDef +'%' + ' !important'));
         // console.log(yourCharacter.barDecreaseDef);
         console.log("main char health: " + yourCharacter.health);
         console.log("defender char health: " + defenderChar.health);
